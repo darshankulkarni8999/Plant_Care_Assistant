@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Vegetable Plants</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .option {
+            width: 200px;
+            margin: 20px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer; /* Add cursor pointer */
+        }
+
+        .option:hover {
+            transform: translateY(-5px);
+        }
+
+        .option img {
+            width: 100%;
+            height: 150px; /* Set a fixed height for uniformity */
+            object-fit: cover; /* Ensure images maintain aspect ratio */
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .option a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            height: 50px; /* Set a fixed height for uniformity */
+            overflow: hidden; /* Hide overflowing text */
+        }
+
+        /* Adjust label font size */
+        .option a {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Flowering Plant</h1>
+        <div class="options">
+            <div class="option" id="African DaisyOption">
+                <img src="African Daisy.jpg" alt="African Daisy">
+                <a href="#">African Daisy</a>
+            </div>
+            <div class="option" id="RosesOption">
+                <img src="Roses.jpg" alt="Roses">
+                <a href="#">Roses</a>
+            </div>
+            <div class="option" id="Temple MagnoliaOption">
+                <img src="Temple Magnolia.jpg" alt="Temple Magnolia">
+                <a href="#">Temple Magnolia</a>
+            </div>
+            <div class="option" id="OrchidsOption">
+                <img src="Orchids.jpg" alt="Orchids">
+                <a href="#">Orchids</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const options = document.querySelectorAll('.option');
+
+        // Add click event listener to each option
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                const selectedOption = option.querySelector('a').innerText;
+                const nextPage = 'http://localhost/plantinfo.php?option=' + encodeURIComponent(selectedOption);
+                window.location.href = nextPage;
+            });
+        });
+    </script>
+</body>
+</html>

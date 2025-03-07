@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form div {
+            margin: 10px 0;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+        }
+
+        .symptom {
+            display: flex;
+            align-items: center;
+        }
+
+        .symptom img {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+        }
+
+        .percentage {
+            margin-left: 10px;
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Plant Disease Detection</h1>
+        <form id="diseaseForm">
+            <div>
+                <label for="plantName">Plant Name:</label>
+                <input type="text" id="plantName" name="plantName" required>
+            </div>
+            <div>
+                <label for="plantAge">Plant Age (in months):</label>
+                <input type="number" id="plantAge" name="plantAge" min="1" required>
+            </div>
+            <h3>Select the symptoms your plant is showing and their severity (%):</h3>
+            <div class="symptom">
+                <input type="checkbox" id="symptom1" name="symptoms" value="yellowLeaves">
+                <img src="yellowLeaves.jpg" alt="Yellow Leaves">
+                <label for="symptom1">Yellow Leaves</label>
+                <input type="number" class="percentage" id="percentage1" name="percentage1" min="0" max="100" placeholder="%" required>
+            </div>
+            <div class="symptom">
+                <input type="checkbox" id="symptom2" name="symptoms" value="spots">
+                <img src="spotsOnLeaves.jpg" alt="Spots on Leaves">
+                <label for="symptom2">Spots on Leaves</label>
+                <input type="number" class="percentage" id="percentage2" name="percentage2" min="0" max="100" placeholder="%" required>
+            </div>
+            <div class="symptom">
+                <input type="checkbox" id="symptom3" name="symptoms" value="wilting">
+                <img src="wilting.jpg" alt="Wilting">
+                <label for="symptom3">Wilting</label>
+                <input type="number" class="percentage" id="percentage3" name="percentage3" min="0" max="100" placeholder="%" required>
+            </div>
+            <div class="symptom">
+                <input type="checkbox" id="symptom4" name="symptoms" value="stuntedGrowth">
+                <img src="stunnedGrowth.jpg" alt="Stunted Growth">
+                <label for="symptom4">Stunted Growth</label>
+                <input type="number" class="percentage" id="percentage4" name="percentage4" min="0" max="100" placeholder="%" required>
+            </div>
+            <div class="symptom">
+                <input type="checkbox" id="symptom5" name="symptoms" value="mold">
+                <img src="mold.jpg" alt="Mold or Mildew">
+                <label for="symptom5">Mold or Mildew</label>
+                <input type="number" class="percentage" id="percentage5" name="percentage5" min="0" max="100" placeholder="%" required>
+            </div>
+            <div class="symptom">
+                <input type="checkbox" id="symptom6" name="symptoms" value="leafCurling">
+                <img src="curling.jpg" alt="Leaf Curling">
+                <label for="symptom6">Leaf Curling</label>
+                <input type="number" class="percentage" id="percentage6" name="percentage6" min="0" max="100" placeholder="%" required>
+            </div>
+            <div class="symptom">
+                <input type="checkbox" id="symptom7" name="symptoms" value="rootRot">
+                <img src="rootRot.jpg" alt="Root Rot">
+                <label for="symptom7">Root Rot</label>
+                <input type="number" class="percentage" id="percentage7" name="percentage7" min="0" max="100" placeholder="%" required>
+            </div>
+            <div class="symptom">
+                <input type="checkbox" id="symptom8" name="symptoms" value="blight">
+                <img src="blight.jpg" alt="Blight">
+                <label for="symptom8">Blight</label>
+                <input type="number" class="percentage" id="percentage8" name="percentage8" min="0" max="100" placeholder="%" required>
+            </div>
+            <div class="symptom">
+                <input type="checkbox" id="symptom9" name="symptoms" value="leafDrop">
+                <img src="leafDrop.jpg" alt="Premature Leaf Drop">
+                <label for="symptom9">Premature Leaf Drop</label>
+                <input type="number" class="percentage" id="percentage9" name="percentage9" min="0" max="100" placeholder="%" required>
+            </div>
+            <div class="symptom">
+                <input type="checkbox" id="symptom10" name="symptoms" value="discoloredLeaves">
+                <img src="discoloredLeaf.jpg" alt="Discolored Leaves">
+                <label for="symptom10">Discolored Leaves</label>
+                <input type="number" class="percentage" id="percentage10" name="percentage10" min="0" max="100" placeholder="%" required>
+            </div>
+            <button type="button" onclick="detectDisease()">Submit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+    function detectDisease() {
+        const symptoms = document.querySelectorAll('input[name="symptoms"]:checked');
+        let symptomData = [];
+        symptoms.forEach((checkbox) => {
+            const percentage = document.getElementById(`percentage${checkbox.id.match(/\d+/)[0]}`).value;
+            symptomData.push({ symptom: checkbox.value, percentage: parseInt(percentage) });
+        });
+
+        // Get plant name and age
+        const plantName = document.getElementById('plantName').value;
+        const plantAge = document.getElementById('plantAge').value;
+
+        let diseaseInfo = {
+            // Single symptoms
+            "yellowLeaves": {
+                disease: "Iron Deficiency",
+                cure: "Use iron chelate or a fertilizer containing iron.",
+                baseAmount: "10ml"
+            },
+            "spots": {
+                disease: "Bacterial Leaf Spot",
+                cure: "Remove affected leaves and apply a copper-based fungicide.",
+                baseAmount: "15ml"
+            },
+            "wilting": {
+                disease: "Verticillium Wilt",
+                cure: "Improve soil drainage and remove affected plants.",
+                baseAmount: "20ml"
+            },
+            "stuntedGrowth": {
+                disease: "Potassium Deficiency",
+                cure: "Apply a potassium-rich fertilizer.",
+                baseAmount: "25ml"
+            },
+            "mold": {
+                disease: "Gray Mold",
+                cure: "Remove affected areas and improve air circulation.",
+                baseAmount: "10ml"
+            },
+            "leafCurling": {
+                disease: "Aphid Infestation",
+                cure: "Spray with insecticidal soap or neem oil.",
+                baseAmount: "30ml"
+            },
+            "rootRot": {
+                disease: "Root Rot",
+                cure: "Ensure well-draining soil and avoid overwatering.",
+                baseAmount: "50ml"
+            },
+            "blight": {
+                disease: "Early Blight",
+                cure: "Remove affected leaves and apply a fungicide.",
+                baseAmount: "20ml"
+            },
+            "leafDrop": {
+                disease: "Overwatering",
+                cure: "Reduce watering and ensure proper drainage.",
+                baseAmount: "0ml"
+            },
+            "discoloredLeaves": {
+                disease: "Magnesium Deficiency",
+                cure: "Use a magnesium-rich fertilizer or Epsom salts.",
+                baseAmount: "10g"
+            },
+        };
+
+        let diseases = [];
+
+        symptomData.forEach((data) => {
+            if (diseaseInfo[data.symptom]) {
+                let baseAmount = diseaseInfo[data.symptom].baseAmount;
+                let actualAmount = (parseInt(baseAmount) * data.percentage / 100) + baseAmount.match(/[a-zA-Z]+/g);
+                diseases.push({
+                    disease: diseaseInfo[data.symptom].disease,
+                    cure: diseaseInfo[data.symptom].cure,
+                    percentage: data.percentage,
+                    amount: actualAmount
+                });
+            }
+        });
+
+        diseases.sort((a, b) => b.percentage - a.percentage);
+
+        let result = "No diseases found for the selected symptoms.";
+
+        if (diseases.length > 0) {
+            result = `Diseases of ${plantName} (${plantAge} months old):<br>`;
+            diseases.forEach(disease => {
+                result += `${disease.disease} (${disease.percentage}%): ${disease.cure} Amount: ${disease.amount}<br>`;
+            });
+        }
+
+        document.getElementById('result').innerHTML = result;
+    }
+    </script>
+</body>
+</html>

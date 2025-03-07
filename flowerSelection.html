@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Flowering Plant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 300px;
+            padding: 10px;
+            border-radius: 5px 0 0 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .option {
+            width: 200px;
+            margin: 20px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            transform: translateY(-5px);
+        }
+
+        .option img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .option a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            height: 50px;
+            overflow: hidden;
+        }
+
+        .option a {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Flowering Plant</h1>
+        
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for a plant...">
+            <button onclick="searchOption()">Search</button>
+        </div>
+
+        <div class="options">
+            <div class="option" id="AfricanDaisyOption">
+                <img src="African Daisy.jpg" alt="African Daisy">
+                <a href="#">African Daisy</a>
+            </div>
+            <div class="option" id="RosesOption">
+                <img src="Roses.jpg" alt="Roses">
+                <a href="#">Roses</a>
+            </div>
+            <div class="option" id="TempleMagnoliaOption">
+                <img src="Temple Magnolia.jpg" alt="Temple Magnolia">
+                <a href="#">Temple Magnolia</a>
+            </div>
+            <div class="option" id="OrchidsOption">
+                <img src="Orchids.jpg" alt="Orchids">
+                <a href="#">Orchids</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function searchOption() {
+            var searchOption = document.getElementById('searchInput').value.toLowerCase();
+            var options = document.querySelectorAll('.option');
+
+            var found = false;
+
+            options.forEach(option => {
+                var plantName = option.querySelector('a').innerText.toLowerCase();
+                if (plantName === searchOption) {
+                    option.click();
+                    found = true;
+                    return;
+                }
+            });
+
+            if (!found) {
+                alert('Plant not found!');
+            }
+        }
+
+        const options = document.querySelectorAll('.option');
+
+        // Add click event listener to each option
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                const selectedOption = option.querySelector('a').innerText;
+                const nextPage = 'plantinfo.php?option=' + encodeURIComponent(selectedOption);
+                window.location.href = nextPage;
+            });
+        });
+
+        // Add event listener to search bar
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                searchOption();
+            }
+        });
+    </script>
+</body>
+</html>

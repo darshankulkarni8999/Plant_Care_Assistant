@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Plant Categories</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f0f7f4; /* Light green background */
+            color: #333; /* Dark grey text color */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            color: #006d77; /* Dark cyan heading color */
+            margin-bottom: 30px;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .option {
+            width: 200px;
+            margin: 20px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .option:hover {
+            transform: translateY(-5px);
+        }
+
+        .option img {
+            width: 100%;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .option a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+       
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Choose Plant Categories</h1>
+        <div class="options">
+            <div class="option" id="vegetableOption">
+                <img src="vegetable.jpg" alt="Vegetable Plants">
+                <a href="#">Vegetable Plants</a>
+            </div>
+            <div class="option" id="fruitOption">
+                <img src="fruit.jpg" alt="Fruit Bearing Plants">
+                <a href="#">Fruit Bearing Plants</a>
+            </div>
+            <div class="option" id="flowerOption">
+                <img src="flower.jpg" alt="Flowering Plants">
+                <a href="#">Flowering Plants</a>
+            </div>
+            <div class="option" id="herbsOption">
+                <img src="herbs.jpg" alt="Herbs">
+                <a href="#">Herbs</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Get references to each option
+        const vegetableOption = document.getElementById('vegetableOption');
+        const fruitOption = document.getElementById('fruitOption');
+        const flowerOption = document.getElementById('flowerOption');
+        const herbsOption = document.getElementById('herbsOption');
+
+        // Add click event listeners to each option
+        vegetableOption.addEventListener('click', function() {
+            window.location.href = 'vegetableSelection.html';
+        });
+
+        fruitOption.addEventListener('click', function() {
+            window.location.href = 'fruitSelection.html';
+        });
+
+        flowerOption.addEventListener('click', function() {
+            window.location.href = 'flowerSelection.html';
+        });
+
+        herbsOption.addEventListener('click', function() {
+            window.location.href = 'herbSelection.html';
+        });
+    </script>
+</body>
+</html>
